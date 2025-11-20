@@ -1,20 +1,29 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+AI-Powered Photography Assistant
 
-# Run and deploy your AI Studio app
+Your all-in-one intelligent camera, lens, and shoot-planning assistant.
 
-This contains everything you need to run your app locally.
+GearPilot helps photographers choose the right gear, plan their shoots, and optimize their camera settings using AI.
+Just tell the app what camera you use or what kind of shoot you're planning—and it instantly suggests the best lenses, filters, SD cards, lighting setups, camera settings, and a complete packing checklist.
 
-View your app in AI Studio: https://ai.studio/apps/drive/1fB6BZELCe2D8e8xGh0c8i457JlFfHuwM
+🔧 What it does:
 
-## Run Locally
+Camera Compatibility Engine – Enter your camera model and get instantly compatible lenses, filters, SD cards, batteries, flash systems, rigs, gimbals, and more.
 
-**Prerequisites:**  Node.js
+AI Shoot Planner – Describe your shoot (portrait, wedding, product, night, landscape, etc.) and get a full equipment list + lighting plan + recommended settings.
 
+Budget Gear Advisor – Tell your budget, get the best gear-to-price recommendations.
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+Camera Settings Wizard – Describe your environment and receive optimized shutter, aperture, ISO, WB, and lighting suggestions.
+
+Packing Checklist Generator – Automatically prepares a shoot-ready equipment list so you never forget anything.
+
+Location-Based Assistant – Best shooting time, lens suggestions, and composition ideas based on your location.
+
+🎯 Built for:
+
+Photographers of all levels: beginners, hobbyists, professionals, videographers, studio shooters, and outdoor creators.
+
+🚀 Why it matters:
+
+No more endless Google searches, YouTube reviews, or guesswork.
+GearPilot becomes your personal AI photography assistant, ensuring you always have the right gear and the best settings for any shoot.
