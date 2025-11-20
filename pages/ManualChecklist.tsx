@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Plus, Trash2, CheckSquare, Square, Camera, Disc, Battery, Zap, Search, Mic, Plane } from 'lucide-react';
+import { Plus, Trash2, CheckSquare, Square, Camera, Disc, Battery, Zap, Search, Mic, Plane, Star, Filter, FolderPlus, X, Package } from 'lucide-react';
 
 // Genişletilmiş Autocomplete Veritabanı
 const GEAR_DATABASE = {
@@ -40,28 +40,75 @@ const GEAR_DATABASE = {
     "Ricoh GR III", "Ricoh GR IIIx", "Ricoh GR III HDF"
   ],
   lenses: [
-    // Sony GM / G
+    // --- SONY E-MOUNT ---
+    // G Master (GM) Zoom
     "Sony FE 12-24mm f/2.8 GM", "Sony FE 16-35mm f/2.8 GM II", "Sony FE 24-70mm f/2.8 GM II", "Sony FE 70-200mm f/2.8 GM OSS II",
-    "Sony FE 24-50mm f/2.8 G", "Sony FE 20-70mm f/4 G", "Sony FE 24-105mm f/4 G OSS",
-    "Sony FE 14mm f/1.8 GM", "Sony FE 20mm f/1.8 G", "Sony FE 24mm f/1.4 GM", "Sony FE 35mm f/1.4 GM", 
-    "Sony FE 50mm f/1.2 GM", "Sony FE 50mm f/1.4 GM", "Sony FE 85mm f/1.4 GM", "Sony FE 135mm f/1.8 GM", "Sony FE 400mm f/2.8 GM",
-    // Canon RF
-    "Canon RF 15-35mm f/2.8 L IS USM", "Canon RF 24-70mm f/2.8 L IS USM", "Canon RF 70-200mm f/2.8 L IS USM",
-    "Canon RF 28-70mm f/2 L USM", "Canon RF 24-105mm f/2.8 L IS USM Z", "Canon RF 100-500mm f/4.5-7.1 L IS USM",
-    "Canon RF 50mm f/1.2 L USM", "Canon RF 85mm f/1.2 L USM", "Canon RF 35mm f/1.8 Macro",
-    // Nikon Z
-    "Nikon Z 14-24mm f/2.8 S", "Nikon Z 24-70mm f/2.8 S", "Nikon Z 70-200mm f/2.8 VR S", 
-    "Nikon Z 58mm f/0.95 S Noct", "Nikon Z 50mm f/1.2 S", "Nikon Z 85mm f/1.2 S", "Nikon Z 135mm f/1.8 S Plena",
-    // Fujifilm XF
+    "Sony FE 100-400mm f/4.5-5.6 GM OSS", 
+    // G Master (GM) Prime
+    "Sony FE 14mm f/1.8 GM", "Sony FE 24mm f/1.4 GM", "Sony FE 35mm f/1.4 GM", "Sony FE 50mm f/1.2 GM", "Sony FE 50mm f/1.4 GM",
+    "Sony FE 85mm f/1.4 GM", "Sony FE 135mm f/1.8 GM", "Sony FE 300mm f/2.8 GM OSS", "Sony FE 400mm f/2.8 GM OSS", "Sony FE 600mm f/4 GM OSS",
+    // G Series Zoom
+    "Sony FE 20-70mm f/4 G", "Sony FE 24-50mm f/2.8 G", "Sony FE 24-105mm f/4 G OSS", "Sony FE 70-200mm f/4 Macro G OSS II", 
+    "Sony FE 200-600mm f/5.6-6.3 G OSS", "Sony E 16-55mm f/2.8 G", "Sony E 70-350mm f/4.5-6.3 G OSS",
+    // G Series Prime & Macro
+    "Sony FE 20mm f/1.8 G", "Sony FE 24mm f/2.8 G", "Sony FE 40mm f/2.5 G", "Sony FE 50mm f/2.5 G", "Sony FE 90mm f/2.8 Macro G OSS",
+
+    // --- CANON RF-MOUNT ---
+    // L Series Zoom
+    "Canon RF 10-20mm f/4 L IS STM", "Canon RF 14-35mm f/4 L IS USM", "Canon RF 15-35mm f/2.8 L IS USM",
+    "Canon RF 24-70mm f/2.8 L IS USM", "Canon RF 24-105mm f/4 L IS USM", "Canon RF 24-105mm f/2.8 L IS USM Z",
+    "Canon RF 28-70mm f/2 L USM", "Canon RF 70-200mm f/2.8 L IS USM", "Canon RF 70-200mm f/4 L IS USM",
+    "Canon RF 100-500mm f/4.5-7.1 L IS USM",
+    // L Series Prime
+    "Canon RF 50mm f/1.2 L USM", "Canon RF 85mm f/1.2 L USM", "Canon RF 85mm f/1.2 L USM DS", "Canon RF 135mm f/1.8 L IS USM",
+    "Canon RF 100mm f/2.8 L Macro IS USM", "Canon RF 5.2mm f/2.8 L Dual Fisheye",
+    // Non-L / STM
+    "Canon RF 16mm f/2.8 STM", "Canon RF 24mm f/1.8 Macro IS STM", "Canon RF 35mm f/1.8 Macro IS STM", 
+    "Canon RF 50mm f/1.8 STM", "Canon RF 85mm f/2 Macro IS STM",
+
+    // --- NIKON Z-MOUNT ---
+    // S Line Zoom
+    "Nikon Z 14-24mm f/2.8 S", "Nikon Z 24-70mm f/2.8 S", "Nikon Z 70-200mm f/2.8 VR S", "Nikon Z 100-400mm f/4.5-5.6 VR S",
+    "Nikon Z 24-120mm f/4 S",
+    // S Line Prime
+    "Nikon Z 20mm f/1.8 S", "Nikon Z 24mm f/1.8 S", "Nikon Z 35mm f/1.8 S", "Nikon Z 50mm f/1.8 S", "Nikon Z 85mm f/1.8 S",
+    "Nikon Z 50mm f/1.2 S", "Nikon Z 85mm f/1.2 S", "Nikon Z 58mm f/0.95 S Noct", "Nikon Z 135mm f/1.8 S Plena",
+    "Nikon Z MC 105mm f/2.8 VR S (Macro)", "Nikon Z 400mm f/2.8 TC VR S", "Nikon Z 600mm f/4 TC VR S",
+    // Non-S
+    "Nikon Z 17-28mm f/2.8", "Nikon Z 28-75mm f/2.8", "Nikon Z 70-180mm f/2.8", "Nikon Z 180-600mm f/5.6-6.3 VR",
+    "Nikon Z 28mm f/2.8", "Nikon Z 40mm f/2",
+
+    // --- FUJIFILM X-MOUNT ---
+    // Red Badge Zoom
     "Fujifilm XF 8-16mm f/2.8 R LM WR", "Fujifilm XF 16-55mm f/2.8 R LM WR", "Fujifilm XF 50-140mm f/2.8 R LM OIS WR",
-    "Fujifilm XF 18mm f/1.4", "Fujifilm XF 23mm f/1.4", "Fujifilm XF 33mm f/1.4", "Fujifilm XF 56mm f/1.2 R WR",
-    // Sigma (Multi-Mount)
-    "Sigma 18-35mm f/1.8 DC HSM Art", "Sigma 24-70mm f/2.8 DG DN Art", "Sigma 16-28mm f/2.8 DG DN Contemporary",
-    "Sigma 35mm f/1.4 DG DN Art", "Sigma 50mm f/1.4 DG DN Art", "Sigma 85mm f/1.4 DG DN Art", "Sigma 105mm f/2.8 DG DN Macro",
-    // Tamron (Multi-Mount)
-    "Tamron 28-75mm f/2.8 Di III VXD G2", "Tamron 35-150mm f/2-2.8 Di III VXD", "Tamron 17-28mm f/2.8 Di III RXD", "Tamron 70-180mm f/2.8 Di III VC VXD G2",
-    // Diğer
-    "Laowa 24mm Probe Lens", "Sirui 35mm Anamorphic", "Viltrox 75mm f/1.2 Pro", "Viltrox 13mm f/1.4"
+    "Fujifilm XF 100-400mm f/4.5-5.6 R LM OIS WR", "Fujifilm XF 150-600mm f/5.6-8 R LM OIS WR",
+    // Primes & Others
+    "Fujifilm XF 18mm f/1.4 R LM WR", "Fujifilm XF 23mm f/1.4 R LM WR", "Fujifilm XF 33mm f/1.4 R LM WR", "Fujifilm XF 56mm f/1.2 R WR",
+    "Fujifilm XF 10-24mm f/4 R OIS WR", "Fujifilm XF 16-80mm f/4 R OIS WR", "Fujifilm XF 70-300mm f/4-5.6 R LM OIS WR",
+    "Fujifilm XF 23mm f/2 R WR", "Fujifilm XF 35mm f/2 R WR", "Fujifilm XF 50mm f/2 R WR",
+    "Fujifilm XF 80mm f/2.8 R LM OIS WR Macro",
+
+    // --- SIGMA (Multi-Mount) ---
+    // Art Series
+    "Sigma 14-24mm f/2.8 DG DN Art", "Sigma 24-70mm f/2.8 DG DN Art", "Sigma 85mm f/1.4 DG DN Art", 
+    "Sigma 35mm f/1.2 DG DN Art", "Sigma 50mm f/1.2 DG DN Art", "Sigma 35mm f/1.4 DG DN Art", "Sigma 50mm f/1.4 DG DN Art",
+    "Sigma 18-35mm f/1.8 DC HSM Art", "Sigma 50-100mm f/1.8 DC HSM Art",
+    // Contemporary & Sports
+    "Sigma 16-28mm f/2.8 DG DN Contemporary", "Sigma 28-70mm f/2.8 DG DN Contemporary", "Sigma 10-18mm f/2.8 DC DN", "Sigma 18-50mm f/2.8 DC DN",
+    "Sigma 16mm f/1.4 DC DN", "Sigma 30mm f/1.4 DC DN", "Sigma 56mm f/1.4 DC DN",
+    "Sigma 60-600mm f/4.5-6.3 DG DN OS Sports", "Sigma 150-600mm f/5-6.3 DG DN OS Sports", "Sigma 500mm f/5.6 DG DN OS Sports",
+    "Sigma 105mm f/2.8 DG DN Macro Art",
+
+    // --- TAMRON (Multi-Mount) ---
+    "Tamron 35-150mm f/2-2.8 Di III VXD", "Tamron 28-75mm f/2.8 Di III VXD G2", "Tamron 28-200mm f/2.8-5.6 Di III RXD",
+    "Tamron 17-28mm f/2.8 Di III RXD", "Tamron 70-180mm f/2.8 Di III VC VXD G2", "Tamron 50-400mm f/4.5-6.3 Di III VC VXD",
+    "Tamron 11-20mm f/2.8 Di III-A RXD", "Tamron 17-70mm f/2.8 Di III-A VC RXD",
+
+    // --- SPECIALTY (Anamorphic, Cine, Manual) ---
+    "Sirui 35mm Anamorphic", "Sirui 50mm Anamorphic", "Sirui 75mm Anamorphic", "Sirui Saturn 35mm T2.9 1.6x Carbon", "Sirui Night Walker 24mm T1.2",
+    "Laowa 24mm Probe Lens", "Laowa 12mm f/2.8 Zero-D", "Laowa 100mm f/2.8 2x Ultra Macro", "Laowa Nanomorph 27mm T2.8 1.5x",
+    "Viltrox 13mm f/1.4", "Viltrox 75mm f/1.2 Pro", "Viltrox 16mm f/1.8",
+    "Voigtlander Nokton 35mm f/1.2", "Voigtlander Nokton 40mm f/1.2", "TTArtisan 50mm f/0.95"
   ],
   accessories: [
     // Depolama
@@ -117,21 +164,23 @@ const GEAR_DATABASE = {
   ]
 };
 
-type CategoryKey = keyof typeof GEAR_DATABASE;
-
 interface ChecklistItem {
   id: string;
   text: string;
   checked: boolean;
+  isEssential: boolean;
 }
 
 interface CategoryState {
-  id: CategoryKey;
+  id: string;
   title: string;
   icon: any;
   color: string;
   items: ChecklistItem[];
+  isCustom?: boolean;
 }
+
+type FilterMode = 'ALL' | 'ESSENTIAL' | 'OPTIONAL';
 
 export const ManualChecklist: React.FC = () => {
   // Başlangıç State'i
@@ -144,16 +193,25 @@ export const ManualChecklist: React.FC = () => {
     { id: 'accessories', title: 'Aksesuarlar & Diğer', icon: Battery, color: 'text-purple-400', items: [] },
   ]);
 
-  // Input State'leri (Her kategori için ayrı input değeri)
+  // Input State'leri
   const [inputs, setInputs] = useState<Record<string, string>>({
     cameras: '', lenses: '', lighting: '', accessories: '', audio: '', drones: ''
   });
+
+  // Her input için "Gerekli mi?" toggle durumu
+  const [isNextEssential, setIsNextEssential] = useState<Record<string, boolean>>({});
 
   // Autocomplete State'leri
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [suggestions, setSuggestions] = useState<string[]>([]);
   
-  // Tıklama dışarıda mı kontrolü için ref
+  // Filtreleme State'i
+  const [filterMode, setFilterMode] = useState<FilterMode>('ALL');
+
+  // Özel Kategori Oluşturma
+  const [newCategoryName, setNewCategoryName] = useState('');
+  const [isCreatingCategory, setIsCreatingCategory] = useState(false);
+  
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -166,14 +224,17 @@ export const ManualChecklist: React.FC = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const handleInputChange = (catId: CategoryKey, value: string) => {
+  const handleInputChange = (catId: string, value: string) => {
     setInputs(prev => ({ ...prev, [catId]: value }));
     
-    if (value.trim().length > 0) {
-      const filtered = GEAR_DATABASE[catId].filter(item => 
+    // Sadece veritabanında olan kategoriler için autocomplete çalıştır
+    // @ts-ignore - GEAR_DATABASE anahtarlarına dinamik erişim
+    const dbItems = GEAR_DATABASE[catId];
+
+    if (value.trim().length > 0 && dbItems) {
+      const filtered = dbItems.filter((item: string) => 
         item.toLowerCase().includes(value.toLowerCase())
       );
-      // İlk 8 sonucu göster
       setSuggestions(filtered.slice(0, 8));
       setActiveCategory(catId);
     } else {
@@ -182,20 +243,32 @@ export const ManualChecklist: React.FC = () => {
     }
   };
 
-  const addItem = (catId: CategoryKey, text: string) => {
+  const toggleEssentialInput = (catId: string) => {
+    setIsNextEssential(prev => ({...prev, [catId]: !prev[catId]}));
+  };
+
+  const addItem = (catId: string, text: string) => {
     if (!text.trim()) return;
     
+    const essential = isNextEssential[catId] || false;
+
     setCategories(prev => prev.map(cat => {
       if (cat.id === catId) {
         return {
           ...cat,
-          items: [...cat.items, { id: Date.now().toString() + Math.random(), text, checked: false }]
+          items: [...cat.items, { 
+            id: Date.now().toString() + Math.random(), 
+            text, 
+            checked: false,
+            isEssential: essential
+          }]
         };
       }
       return cat;
     }));
     
     setInputs(prev => ({ ...prev, [catId]: '' }));
+    setIsNextEssential(prev => ({...prev, [catId]: false})); // Reset essential toggle
     setActiveCategory(null);
   };
 
@@ -225,65 +298,142 @@ export const ManualChecklist: React.FC = () => {
     }));
   };
 
+  const handleAddCategory = () => {
+    if (!newCategoryName.trim()) return;
+    
+    const newId = `custom-${Date.now()}`;
+    const colors = ['text-rose-400', 'text-lime-400', 'text-cyan-400', 'text-fuchsia-400', 'text-orange-400'];
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+
+    setCategories(prev => [...prev, {
+      id: newId,
+      title: newCategoryName,
+      icon: Package, // Generic icon for custom categories
+      color: randomColor,
+      items: [],
+      isCustom: true
+    }]);
+
+    setNewCategoryName('');
+    setIsCreatingCategory(false);
+    // Yeni kategori için input state'ini başlat
+    setInputs(prev => ({ ...prev, [newId]: '' }));
+  };
+
+  const handleDeleteCategory = (catId: string) => {
+    setCategories(prev => prev.filter(c => c.id !== catId));
+    // Input state temizliği opsiyonel ama iyi olur
+    const newInputs = {...inputs};
+    delete newInputs[catId];
+    setInputs(newInputs);
+  };
+
   // İstatistikler
   const totalItems = categories.reduce((acc, cat) => acc + cat.items.length, 0);
   const checkedItems = categories.reduce((acc, cat) => acc + cat.items.filter(i => i.checked).length, 0);
   const progress = totalItems === 0 ? 0 : Math.round((checkedItems / totalItems) * 100);
 
+  const getFilteredItems = (items: ChecklistItem[]) => {
+    if (filterMode === 'ESSENTIAL') return items.filter(i => i.isEssential);
+    if (filterMode === 'OPTIONAL') return items.filter(i => !i.isEssential);
+    return items;
+  };
+
   return (
     <div className="max-w-7xl mx-auto pb-10">
-      <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
            <h1 className="text-3xl font-bold text-white mb-2">Çanta Hazırlama</h1>
            <p className="text-slate-400">Profesyonel çekimler için eksiksiz ekipman listesi oluşturun.</p>
         </div>
         
-        {/* Progress Bar */}
-        <div className="bg-slate-900 p-4 rounded-xl border border-slate-800 w-full md:w-80">
-          <div className="flex justify-between text-sm mb-2">
-            <span className="text-slate-300">Hazırlık Durumu</span>
-            <span className="text-indigo-400 font-bold">%{progress}</span>
-          </div>
-          <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
-            <div 
-              className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 transition-all duration-500"
-              style={{ width: `${progress}%` }}
-            />
-          </div>
-          <div className="text-xs text-slate-500 mt-2 text-right">
-            {checkedItems} / {totalItems} parça hazır
-          </div>
+        <div className="flex flex-col gap-4 w-full md:w-auto">
+            {/* Progress Bar */}
+            <div className="bg-slate-900 p-4 rounded-xl border border-slate-800 w-full md:w-80">
+            <div className="flex justify-between text-sm mb-2">
+                <span className="text-slate-300">Hazırlık Durumu</span>
+                <span className="text-indigo-400 font-bold">%{progress}</span>
+            </div>
+            <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
+                <div 
+                className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 transition-all duration-500"
+                style={{ width: `${progress}%` }}
+                />
+            </div>
+            <div className="text-xs text-slate-500 mt-2 text-right">
+                {checkedItems} / {totalItems} parça hazır
+            </div>
+            </div>
+
+            {/* Filter Controls */}
+            <div className="flex bg-slate-900 p-1 rounded-lg border border-slate-800">
+                {(['ALL', 'ESSENTIAL', 'OPTIONAL'] as FilterMode[]).map((mode) => (
+                    <button
+                        key={mode}
+                        onClick={() => setFilterMode(mode)}
+                        className={`flex-1 py-1.5 px-3 text-xs font-medium rounded-md transition-all ${
+                            filterMode === mode 
+                            ? 'bg-indigo-600 text-white shadow-md' 
+                            : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800'
+                        }`}
+                    >
+                        {mode === 'ALL' && 'Tümü'}
+                        {mode === 'ESSENTIAL' && 'Gerekli'}
+                        {mode === 'OPTIONAL' && 'Opsiyonel'}
+                    </button>
+                ))}
+            </div>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         {categories.map((cat) => (
-          <div key={cat.id} className="bg-slate-900/50 border border-slate-800 rounded-2xl overflow-hidden flex flex-col h-full">
+          <div key={cat.id} className="bg-slate-900/50 border border-slate-800 rounded-2xl overflow-hidden flex flex-col h-full group/card hover:border-slate-700 transition-colors">
             {/* Header */}
-            <div className="p-4 bg-slate-900 border-b border-slate-800 flex items-center justify-between">
+            <div className="p-4 bg-slate-900 border-b border-slate-800 flex items-center justify-between relative">
               <div className="flex items-center gap-3">
                 <div className={`p-2 rounded-lg bg-slate-800 ${cat.color}`}>
                   <cat.icon size={20} />
                 </div>
                 <h3 className="font-bold text-slate-200">{cat.title}</h3>
               </div>
-              <span className="text-xs font-mono bg-slate-800 text-slate-400 px-2 py-1 rounded">
-                {cat.items.filter(i => i.checked).length}/{cat.items.length}
-              </span>
+              
+              <div className="flex items-center gap-2">
+                 <span className="text-xs font-mono bg-slate-800 text-slate-400 px-2 py-1 rounded">
+                    {cat.items.filter(i => i.checked).length}/{cat.items.length}
+                </span>
+                {cat.isCustom && (
+                    <button 
+                        onClick={() => handleDeleteCategory(cat.id)}
+                        className="text-slate-600 hover:text-red-400 p-1 rounded hover:bg-slate-800 transition-colors"
+                        title="Kategoriyi Sil"
+                    >
+                        <X size={16} />
+                    </button>
+                )}
+              </div>
             </div>
 
             {/* Input Area */}
             <div className="p-4 border-b border-slate-800/50 relative">
               <div className="flex gap-2">
-                <div className="relative flex-1">
+                <div className="relative flex-1 flex items-center bg-slate-950 border border-slate-700 rounded-lg focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 transition-all">
                     <input
                         type="text"
-                        value={inputs[cat.id]}
+                        value={inputs[cat.id] || ''}
                         onChange={(e) => handleInputChange(cat.id, e.target.value)}
                         onKeyDown={(e) => e.key === 'Enter' && addItem(cat.id, inputs[cat.id])}
-                        placeholder={`${cat.title.split(' ')[0]} ekle...`}
-                        className="w-full bg-slate-950 border border-slate-700 rounded-lg py-2 pl-3 pr-3 text-sm text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all"
+                        placeholder="Öğe ekle..."
+                        className="w-full bg-transparent py-2 pl-3 pr-2 text-sm text-white focus:outline-none"
                     />
+                    <button
+                        onClick={() => toggleEssentialInput(cat.id)}
+                        className={`p-1.5 mr-1 rounded transition-colors ${isNextEssential[cat.id] ? 'text-amber-400 bg-amber-400/10' : 'text-slate-600 hover:text-slate-400'}`}
+                        title={isNextEssential[cat.id] ? "Öncelik: Gerekli" : "Öncelik: Normal"}
+                    >
+                        <Star size={16} className={isNextEssential[cat.id] ? "fill-current" : ""} />
+                    </button>
+
                      {/* Autocomplete Dropdown */}
                     {activeCategory === cat.id && suggestions.length > 0 && (
                         <div ref={dropdownRef} className="absolute left-0 right-0 top-full mt-1 bg-slate-800 border border-slate-700 rounded-lg shadow-xl z-20 max-h-56 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-700">
@@ -311,14 +461,20 @@ export const ManualChecklist: React.FC = () => {
 
             {/* Items List */}
             <div className="flex-1 p-2 overflow-y-auto min-h-[200px] max-h-[400px] scrollbar-thin scrollbar-thumb-slate-800">
-              {cat.items.length === 0 ? (
+              {getFilteredItems(cat.items).length === 0 ? (
                 <div className="h-full flex flex-col items-center justify-center text-slate-600 p-8">
-                  <Search size={32} className="mb-2 opacity-50" />
-                  <p className="text-sm text-center">Listeniz boş.</p>
+                    {cat.items.length > 0 ? (
+                         <p className="text-sm text-center italic opacity-50">Bu filtrede öğe yok.</p>
+                    ) : (
+                        <>
+                            <Search size={32} className="mb-2 opacity-50" />
+                            <p className="text-sm text-center">Listeniz boş.</p>
+                        </>
+                    )}
                 </div>
               ) : (
                 <ul className="space-y-1">
-                  {cat.items.map(item => (
+                  {getFilteredItems(cat.items).map(item => (
                     <li 
                       key={item.id} 
                       className={`group flex items-center justify-between p-3 rounded-lg transition-all duration-200 ${
@@ -332,11 +488,18 @@ export const ManualChecklist: React.FC = () => {
                         <div className={`shrink-0 transition-colors ${item.checked ? 'text-indigo-400' : 'text-slate-600 group-hover:text-slate-400'}`}>
                           {item.checked ? <CheckSquare size={20} /> : <Square size={20} />}
                         </div>
-                        <span className={`text-sm font-medium transition-colors ${
-                            item.checked ? 'text-slate-400 line-through decoration-slate-600' : 'text-slate-200'
-                        }`}>
-                          {item.text}
-                        </span>
+                        <div className="flex flex-col">
+                            <span className={`text-sm font-medium transition-colors ${
+                                item.checked ? 'text-slate-500 line-through decoration-slate-600' : 'text-slate-200'
+                            }`}>
+                            {item.text}
+                            </span>
+                            {item.isEssential && (
+                                <span className="text-[10px] font-semibold text-amber-500 flex items-center gap-1 mt-0.5">
+                                    <Star size={8} className="fill-current" /> GEREKLİ
+                                </span>
+                            )}
+                        </div>
                       </button>
                       
                       <button 
@@ -352,6 +515,50 @@ export const ManualChecklist: React.FC = () => {
             </div>
           </div>
         ))}
+
+        {/* Add New Category Card */}
+        <div className="bg-slate-900/20 border-2 border-dashed border-slate-800 hover:border-indigo-500/50 hover:bg-slate-900/40 rounded-2xl p-6 flex flex-col items-center justify-center min-h-[300px] transition-all cursor-pointer group"
+            onClick={() => !isCreatingCategory && setIsCreatingCategory(true)}
+        >
+            {isCreatingCategory ? (
+                <div className="w-full space-y-3 animate-fade-in" onClick={e => e.stopPropagation()}>
+                    <h3 className="text-white font-semibold text-center mb-2">Yeni Kategori</h3>
+                    <input 
+                        autoFocus
+                        type="text"
+                        placeholder="Kategori Adı (örn. Kamp)"
+                        value={newCategoryName}
+                        onChange={e => setNewCategoryName(e.target.value)}
+                        onKeyDown={e => e.key === 'Enter' && handleAddCategory()}
+                        className="w-full bg-slate-950 border border-slate-700 rounded-lg p-3 text-white text-sm focus:border-indigo-500 focus:outline-none"
+                    />
+                    <div className="flex gap-2">
+                        <button 
+                            onClick={() => setIsCreatingCategory(false)}
+                            className="flex-1 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-sm transition-colors"
+                        >
+                            İptal
+                        </button>
+                        <button 
+                            onClick={handleAddCategory}
+                            className="flex-1 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-sm transition-colors"
+                        >
+                            Oluştur
+                        </button>
+                    </div>
+                </div>
+            ) : (
+                <>
+                    <div className="w-16 h-16 rounded-full bg-slate-800 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform group-hover:bg-indigo-500/20">
+                        <FolderPlus size={32} className="text-slate-500 group-hover:text-indigo-400" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-slate-400 group-hover:text-indigo-300">Kategori Ekle</h3>
+                    <p className="text-sm text-slate-500 text-center mt-2 max-w-[200px]">
+                        Listenizi özelleştirmek için kendi bölümlerinizi oluşturun.
+                    </p>
+                </>
+            )}
+        </div>
       </div>
     </div>
   );

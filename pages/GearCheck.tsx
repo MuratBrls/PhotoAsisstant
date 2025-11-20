@@ -23,6 +23,9 @@ const POPULAR_CAMERAS = [
   "Blackmagic Pocket Cinema Camera 6K Pro", "Blackmagic Cinema Camera 6K", "Blackmagic Pocket Cinema Camera 4K"
 ];
 
+// Arama normalizasyon fonksiyonu: Boşlukları, tireleri ve özel karakterleri kaldırır
+const normalizeForSearch = (str: string) => str.toLowerCase().replace(/[^a-z0-9]/g, '');
+
 const GearCategory = ({ title, items, icon: Icon }: { title: string; items: GearItem[]; icon: any }) => (
   <div className="bg-slate-900 rounded-xl border border-slate-800 overflow-hidden">
     <div className="p-4 border-b border-slate-800 bg-slate-800/30 flex items-center gap-2">
@@ -72,14 +75,22 @@ export const GearCheck: React.FC = () => {
     };
   }, []);
 
+  // Filtreleme Mantığı
+  const filterCameras = (query: string) => {
+    const normalizedQuery = normalizeForSearch(query);
+    if (!normalizedQuery) return [];
+    
+    return POPULAR_CAMERAS.filter(cam => 
+      normalizeForSearch(cam).includes(normalizedQuery)
+    );
+  };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setInput(value);
 
     if (value.trim().length > 0) {
-      const filtered = POPULAR_CAMERAS.filter(cam => 
-        cam.toLowerCase().includes(value.toLowerCase())
-      );
+      const filtered = filterCameras(value);
       setSuggestions(filtered);
       setShowSuggestions(true);
     } else {
@@ -129,14 +140,12 @@ export const GearCheck: React.FC = () => {
               onChange={handleInputChange}
               onFocus={() => {
                 if (input.trim().length > 0) {
-                   const filtered = POPULAR_CAMERAS.filter(cam => 
-                     cam.toLowerCase().includes(input.toLowerCase())
-                   );
+                   const filtered = filterCameras(input);
                    setSuggestions(filtered);
                    setShowSuggestions(true);
                 }
               }}
-              placeholder="Kamera modelini girin..."
+              placeholder="Kamera modelini girin (örn: 'xs' yazarak X-S10 bulabilirsiniz)..."
               className="w-full bg-slate-900 border border-slate-700 rounded-xl py-4 pl-12 pr-4 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all"
               autoComplete="off"
             />
