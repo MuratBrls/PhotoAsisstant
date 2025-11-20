@@ -5,7 +5,7 @@ import { Dashboard } from './pages/Dashboard';
 import { GearCheck } from './pages/GearCheck';
 import { ShootPlanner } from './pages/ShootPlanner';
 import { SettingsWizard } from './pages/SettingsWizard';
-import { PackList } from './pages/PackList';
+import { ManualChecklist } from './pages/ManualChecklist';
 
 const App: React.FC = () => {
   return (
@@ -13,10 +13,10 @@ const App: React.FC = () => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Dashboard />} />
+          <Route path="my-kit" element={<ManualChecklist />} />
           <Route path="gear" element={<GearCheck />} />
           <Route path="planner" element={<ShootPlanner />} />
           <Route path="settings" element={<SettingsWizard />} />
-          <Route path="packing" element={<PackList />} />
         </Route>
       </Routes>
     </Router>

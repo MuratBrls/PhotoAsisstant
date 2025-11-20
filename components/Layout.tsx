@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
-import { Camera, Map, Layers, Backpack, Sliders, Aperture, Menu, X } from 'lucide-react';
+import { Camera, Map, Layers, Sliders, Aperture, Menu, X, ClipboardList } from 'lucide-react';
 
 const SidebarItem = ({ to, icon: Icon, label, onClick }: { to: string; icon: any; label: string; onClick?: () => void }) => (
   <NavLink
@@ -50,10 +50,10 @@ export const Layout: React.FC = () => {
 
         <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
           <SidebarItem to="/" icon={Layers} label="Panel" onClick={() => setIsMobileMenuOpen(false)} />
+          <SidebarItem to="/my-kit" icon={ClipboardList} label="Çanta Hazırlama" onClick={() => setIsMobileMenuOpen(false)} />
           <SidebarItem to="/gear" icon={Camera} label="Ekipman Kontrolü" onClick={() => setIsMobileMenuOpen(false)} />
           <SidebarItem to="/planner" icon={Map} label="Çekim Planlayıcı" onClick={() => setIsMobileMenuOpen(false)} />
           <SidebarItem to="/settings" icon={Sliders} label="Ayarlar Sihirbazı" onClick={() => setIsMobileMenuOpen(false)} />
-          <SidebarItem to="/packing" icon={Backpack} label="Çanta Hazırlama" onClick={() => setIsMobileMenuOpen(false)} />
         </nav>
 
         <div className="p-4 border-t border-slate-800">

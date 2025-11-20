@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Camera, Map, Backpack, ArrowRight, Zap } from 'lucide-react';
+import { Camera, Map, ArrowRight, Zap, ClipboardList } from 'lucide-react';
 
 const FeatureCard = ({ to, icon: Icon, title, desc, color }: any) => (
   <Link 
@@ -48,28 +48,28 @@ export const Dashboard: React.FC = () => {
       </div>
 
       <div>
-        <h2 className="text-2xl font-bold text-white mb-6">Hızlı Araçlar</h2>
+        <h2 className="text-2xl font-bold text-white mb-6">Araçlar</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+           <FeatureCard 
+            to="/my-kit" 
+            icon={ClipboardList} 
+            title="Çanta Hazırlama" 
+            desc="Geniş ekipman veritabanı ile çantanızı eksiksiz hazırlayın ve kontrol edin."
+            color="bg-emerald-500"
+          />
           <FeatureCard 
             to="/gear" 
             icon={Camera} 
             title="Ekipman Uyumluluğu" 
-            desc="Lens bayonetlerini kontrol edin, aksesuarları doğrulayın ve kamera gövdeniz için mükemmel eşleşmeyi bulun."
+            desc="Lens bayonetlerini kontrol edin ve kamera gövdeniz için mükemmel eşleşmeyi bulun."
             color="bg-blue-500"
           />
           <FeatureCard 
             to="/planner" 
             icon={Map} 
             title="Çekim Planlayıcı" 
-            desc="Herhangi bir konum ve hava durumu için ayrıntılı aydınlatma şemaları, ayarlar ve ekipman listeleri alın."
+            desc="Detaylı aydınlatma şemaları, ayarlar ve ekipman listeleri alın."
             color="bg-purple-500"
-          />
-          <FeatureCard 
-            to="/packing" 
-            icon={Backpack} 
-            title="Çanta Asistanı" 
-            desc="Bir daha asla batarya unutmayın. Gezinize özel yapay zeka destekli kontrol listeleri."
-            color="bg-emerald-500"
           />
         </div>
       </div>
