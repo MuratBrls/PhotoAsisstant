@@ -1,7 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Search, Camera, Disc, Battery, CheckCircle, AlertCircle, ChevronRight } from 'lucide-react';
 import { getGearCompatibility } from '../services/gemini';
 import { CompatibilityResult, GearItem, LoadingState } from '../types';
+
+// Popüler kamera modelleri listesi (Otomatik tamamlama için)
+const POPULAR_CAMERAS = [
+  // Sony
+  "Sony A7 IV", "Sony A7R V", "Sony A7S III", "Sony A7C II", "Sony A7C R", "Sony A6700", "Sony A6400", "Sony ZV-E10", "Sony ZV-1 II", "Sony FX3", "Sony FX30", "Sony A1", "Sony A9 III",
+  // Canon
+  "Canon EOS R5", "Canon EOS R6 Mark II", "Canon EOS R8", "Canon EOS R7", "Canon EOS R10", "Canon EOS R50", "Canon EOS R100", "Canon EOS R3", "Canon EOS 5D Mark IV", "Canon EOS 6D Mark II", "Canon EOS 90D", "Canon EOS M50 Mark II",
+  // Nikon
+  "Nikon Z8", "Nikon Z9", "Nikon Z7 II", "Nikon Z6 III", "Nikon Z5", "Nikon Z f", "Nikon Z fc", "Nikon Z50", "Nikon Z30", "Nikon D850", "Nikon D780", "Nikon D7500",
+  // Fujifilm
+  "Fujifilm X-T5", "Fujifilm X-H2S", "Fujifilm X-H2", "Fujifilm X-S20", "Fujifilm X-S10", "Fujifilm X-T4", "Fujifilm X100VI", "Fujifilm X100V", "Fujifilm GFX 100 II", "Fujifilm GFX 50S II", "Fujifilm X-Pro3",
+  // Panasonic
+  "Panasonic Lumix S5 II", "Panasonic Lumix S5 IIX", "Panasonic Lumix GH6", "Panasonic Lumix GH7", "Panasonic Lumix G9 II", "Panasonic Lumix S1H",
+  // OM System / Olympus
+  "OM System OM-1 Mark II", "OM System OM-5", "Olympus OM-D E-M1 Mark III", "Olympus PEN E-P7",
+  // Leica
+  "Leica Q3", "Leica M11", "Leica SL3", "Leica Q2",
+  // Blackmagic
+  "Blackmagic Pocket Cinema Camera 6K Pro", "Blackmagic Cinema Camera 6K", "Blackmagic Pocket Cinema Camera 4K"
+];
 
 const GearCategory = ({ title, items, icon: Icon }: { title: string; items: GearItem[]; icon: any }) => (
   <div className="bg-slate-900 rounded-xl border border-slate-800 overflow-hidden">
@@ -32,13 +52,55 @@ export const GearCheck: React.FC = () => {
   const [result, setResult] = useState<CompatibilityResult | null>(null);
   const [status, setStatus] = useState<LoadingState>(LoadingState.IDLE);
   const [error, setError] = useState('');
+  
+  // Autocomplete states
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const suggestionsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Tıklama dışarıda mı kontrol et
+    const handleClickOutside = (event: MouseEvent) => {
+      if (suggestionsRef.current && !suggestionsRef.current.contains(event.target as Node)) {
+        setShowSuggestions(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setInput(value);
+
+    if (value.trim().length > 0) {
+      const filtered = POPULAR_CAMERAS.filter(cam => 
+        cam.toLowerCase().includes(value.toLowerCase())
+      );
+      setSuggestions(filtered);
+      setShowSuggestions(true);
+    } else {
+      setSuggestions([]);
+      setShowSuggestions(false);
+    }
+  };
+
+  const handleSuggestionClick = (camera: string) => {
+    setInput(camera);
+    setShowSuggestions(false);
+  };
 
   const handleCheck = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim()) return;
 
+    setShowSuggestions(false); // Önerileri kapat
     setStatus(LoadingState.LOADING);
     setError('');
+    
     try {
       const data = await getGearCompatibility(input);
       setResult(data);
@@ -59,22 +121,49 @@ export const GearCheck: React.FC = () => {
 
       <form onSubmit={handleCheck} className="relative mb-12">
         <div className="flex gap-2">
-          <div className="relative flex-1">
+          <div className="relative flex-1" ref={suggestionsRef}>
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={20} />
             <input
               type="text"
               value={input}
-              onChange={(e) => setInput(e.target.value)}
+              onChange={handleInputChange}
+              onFocus={() => {
+                if (input.trim().length > 0) {
+                   const filtered = POPULAR_CAMERAS.filter(cam => 
+                     cam.toLowerCase().includes(input.toLowerCase())
+                   );
+                   setSuggestions(filtered);
+                   setShowSuggestions(true);
+                }
+              }}
               placeholder="Kamera modelini girin..."
               className="w-full bg-slate-900 border border-slate-700 rounded-xl py-4 pl-12 pr-4 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all"
+              autoComplete="off"
             />
+            
+            {/* Autocomplete Dropdown */}
+            {showSuggestions && suggestions.length > 0 && (
+              <div className="absolute left-0 right-0 top-full mt-2 bg-slate-900 border border-slate-700 rounded-xl shadow-2xl z-50 max-h-60 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-slate-900 animate-fade-in">
+                {suggestions.map((cam, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => handleSuggestionClick(cam)}
+                    className="w-full text-left px-4 py-3 text-slate-300 hover:bg-slate-800 hover:text-white transition-colors border-b border-slate-800 last:border-0 flex items-center justify-between group"
+                  >
+                    <span>{cam}</span>
+                    <ChevronRight size={14} className="opacity-0 group-hover:opacity-100 text-indigo-400 transition-opacity" />
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
           <button
             type="submit"
             disabled={status === LoadingState.LOADING}
-            className="px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
           >
-            {status === LoadingState.LOADING ? 'Analiz Ediliyor...' : 'Analiz Et'}
+            {status === LoadingState.LOADING ? 'Analiz...' : 'Analiz Et'}
           </button>
         </div>
       </form>
