@@ -8,7 +8,7 @@ const GearCategory = ({ title, items, icon: Icon }: { title: string; items: Gear
     <div className="p-4 border-b border-slate-800 bg-slate-800/30 flex items-center gap-2">
       <Icon className="text-indigo-400" size={20} />
       <h3 className="font-semibold text-slate-200">{title}</h3>
-      <span className="ml-auto text-xs font-mono text-slate-500">{items.length} items</span>
+      <span className="ml-auto text-xs font-mono text-slate-500">{items.length} öğe</span>
     </div>
     <div className="divide-y divide-slate-800">
       {items.map((item, idx) => (
@@ -45,7 +45,7 @@ export const GearCheck: React.FC = () => {
       setStatus(LoadingState.SUCCESS);
     } catch (err) {
       console.error(err);
-      setError('Failed to analyze gear. Please verify your API key or try again.');
+      setError('Ekipman analiz edilemedi. Lütfen API anahtarınızı kontrol edin veya tekrar deneyin.');
       setStatus(LoadingState.ERROR);
     }
   };
@@ -53,8 +53,8 @@ export const GearCheck: React.FC = () => {
   return (
     <div className="max-w-4xl mx-auto">
       <div className="text-center mb-10">
-        <h1 className="text-3xl font-bold text-white mb-3">Gear Compatibility & Recommendations</h1>
-        <p className="text-slate-400">Enter a camera body name (e.g., "Sony A7IV", "Canon R5") to get AI-powered lens and accessory suggestions.</p>
+        <h1 className="text-3xl font-bold text-white mb-3">Ekipman Uyumluluğu ve Öneriler</h1>
+        <p className="text-slate-400">Yapay zeka destekli lens ve aksesuar önerileri almak için bir kamera gövdesi adı girin (örn. "Sony A7IV", "Canon R5").</p>
       </div>
 
       <form onSubmit={handleCheck} className="relative mb-12">
@@ -65,7 +65,7 @@ export const GearCheck: React.FC = () => {
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Enter camera model..."
+              placeholder="Kamera modelini girin..."
               className="w-full bg-slate-900 border border-slate-700 rounded-xl py-4 pl-12 pr-4 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all"
             />
           </div>
@@ -74,7 +74,7 @@ export const GearCheck: React.FC = () => {
             disabled={status === LoadingState.LOADING}
             className="px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {status === LoadingState.LOADING ? 'Analyzing...' : 'Analyze'}
+            {status === LoadingState.LOADING ? 'Analiz Ediliyor...' : 'Analiz Et'}
           </button>
         </div>
       </form>
@@ -96,15 +96,15 @@ export const GearCheck: React.FC = () => {
               <h2 className="text-2xl font-bold text-white">{result.cameraName}</h2>
               <div className="flex gap-4 text-slate-400 mt-1">
                 <span className="flex items-center gap-1"><Disc size={14} /> {result.mountType} Mount</span>
-                <span className="flex items-center gap-1"><CheckCircle size={14} /> {result.sensorSize} Sensor</span>
+                <span className="flex items-center gap-1"><CheckCircle size={14} /> {result.sensorSize} Sensör</span>
               </div>
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <GearCategory title="Recommended Lenses" items={result.lenses} icon={Camera} />
-            <GearCategory title="Essential Accessories" items={result.accessories} icon={Battery} />
-            <GearCategory title="Compatible Media" items={result.media} icon={Disc} />
+            <GearCategory title="Önerilen Lensler" items={result.lenses} icon={Camera} />
+            <GearCategory title="Gerekli Aksesuarlar" items={result.accessories} icon={Battery} />
+            <GearCategory title="Uyumlu Medya" items={result.media} icon={Disc} />
           </div>
         </div>
       )}

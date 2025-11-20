@@ -49,17 +49,17 @@ export const Layout: React.FC = () => {
         </div>
 
         <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
-          <SidebarItem to="/" icon={Layers} label="Dashboard" onClick={() => setIsMobileMenuOpen(false)} />
-          <SidebarItem to="/gear" icon={Camera} label="Gear Check" onClick={() => setIsMobileMenuOpen(false)} />
-          <SidebarItem to="/planner" icon={Map} label="Shoot Planner" onClick={() => setIsMobileMenuOpen(false)} />
-          <SidebarItem to="/settings" icon={Sliders} label="Settings Wizard" onClick={() => setIsMobileMenuOpen(false)} />
-          <SidebarItem to="/packing" icon={Backpack} label="Packing List" onClick={() => setIsMobileMenuOpen(false)} />
+          <SidebarItem to="/" icon={Layers} label="Panel" onClick={() => setIsMobileMenuOpen(false)} />
+          <SidebarItem to="/gear" icon={Camera} label="Ekipman Kontrolü" onClick={() => setIsMobileMenuOpen(false)} />
+          <SidebarItem to="/planner" icon={Map} label="Çekim Planlayıcı" onClick={() => setIsMobileMenuOpen(false)} />
+          <SidebarItem to="/settings" icon={Sliders} label="Ayarlar Sihirbazı" onClick={() => setIsMobileMenuOpen(false)} />
+          <SidebarItem to="/packing" icon={Backpack} label="Çanta Hazırlama" onClick={() => setIsMobileMenuOpen(false)} />
         </nav>
 
         <div className="p-4 border-t border-slate-800">
           <div className="p-3 rounded-lg bg-slate-800/50 border border-slate-700 text-xs text-slate-400">
-            <p className="font-semibold text-slate-300 mb-1">Pro Tip</p>
-            Always check your histogram for balanced exposures.
+            <p className="font-semibold text-slate-300 mb-1">Profesyonel İpucu</p>
+            Dengeli pozlama için her zaman histogramı kontrol edin.
           </div>
         </div>
       </aside>

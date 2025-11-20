@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Sun, CloudRain, Clock, MapPin, Aperture, Thermometer, Wind, Info, Map } from 'lucide-react';
+import { Sun, CloudRain, Clock, MapPin, Aperture, Thermometer, Wind, Info, Map as MapIcon } from 'lucide-react';
 import { getShootPlan } from '../services/gemini';
 import { ShootPlan, ShootType, LoadingState } from '../types';
 
@@ -29,13 +29,13 @@ export const ShootPlanner: React.FC = () => {
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
       <div className="lg:col-span-4 space-y-6">
         <div>
-          <h1 className="text-2xl font-bold text-white mb-2">Shoot Planner</h1>
-          <p className="text-slate-400 text-sm">Tell us about your upcoming session.</p>
+          <h1 className="text-2xl font-bold text-white mb-2">Çekim Planlayıcı</h1>
+          <p className="text-slate-400 text-sm">Yaklaşan çekiminizden bahsedin.</p>
         </div>
 
         <form onSubmit={handleSubmit} className="bg-slate-900 rounded-2xl border border-slate-800 p-6 space-y-5">
           <div>
-            <label className="block text-sm font-medium text-slate-300 mb-2">Shoot Type</label>
+            <label className="block text-sm font-medium text-slate-300 mb-2">Çekim Türü</label>
             <select 
               className="w-full bg-slate-950 border border-slate-700 rounded-lg p-3 text-white focus:border-indigo-500 focus:outline-none"
               value={formData.type}
@@ -46,12 +46,12 @@ export const ShootPlanner: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-slate-300 mb-2">Location / Environment</label>
+            <label className="block text-sm font-medium text-slate-300 mb-2">Konum / Ortam</label>
             <div className="relative">
               <MapPin className="absolute left-3 top-3 text-slate-500" size={18} />
               <input 
                 type="text"
-                placeholder="e.g., Downtown City Park, Studio"
+                placeholder="Örn: Şehir Parkı, Stüdyo"
                 className="w-full bg-slate-950 border border-slate-700 rounded-lg p-3 pl-10 text-white focus:border-indigo-500 focus:outline-none"
                 value={formData.location}
                 onChange={e => setFormData({...formData, location: e.target.value})}
@@ -62,12 +62,12 @@ export const ShootPlanner: React.FC = () => {
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-300 mb-2">Time of Day</label>
+              <label className="block text-sm font-medium text-slate-300 mb-2">Günün Saati</label>
               <div className="relative">
                 <Clock className="absolute left-3 top-3 text-slate-500" size={18} />
                 <input 
                   type="text"
-                  placeholder="e.g., Golden Hour"
+                  placeholder="Örn: Altın Saat"
                   className="w-full bg-slate-950 border border-slate-700 rounded-lg p-3 pl-10 text-white focus:border-indigo-500 focus:outline-none"
                   value={formData.time}
                   onChange={e => setFormData({...formData, time: e.target.value})}
@@ -76,12 +76,12 @@ export const ShootPlanner: React.FC = () => {
               </div>
             </div>
              <div>
-              <label className="block text-sm font-medium text-slate-300 mb-2">Weather</label>
+              <label className="block text-sm font-medium text-slate-300 mb-2">Hava Durumu</label>
               <div className="relative">
                 <CloudRain className="absolute left-3 top-3 text-slate-500" size={18} />
                 <input 
                   type="text"
-                  placeholder="e.g., Overcast"
+                  placeholder="Örn: Bulutlu"
                   className="w-full bg-slate-950 border border-slate-700 rounded-lg p-3 pl-10 text-white focus:border-indigo-500 focus:outline-none"
                   value={formData.weather}
                   onChange={e => setFormData({...formData, weather: e.target.value})}
@@ -96,7 +96,7 @@ export const ShootPlanner: React.FC = () => {
             disabled={status === LoadingState.LOADING}
             className="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-lg transition-colors shadow-lg shadow-indigo-500/20"
           >
-            {status === LoadingState.LOADING ? 'Generating Plan...' : 'Generate Plan'}
+            {status === LoadingState.LOADING ? 'Plan Oluşturuluyor...' : 'Plan Oluştur'}
           </button>
         </form>
       </div>
@@ -104,8 +104,8 @@ export const ShootPlanner: React.FC = () => {
       <div className="lg:col-span-8">
         {status === LoadingState.IDLE && (
           <div className="h-full flex flex-col items-center justify-center text-slate-500 border-2 border-dashed border-slate-800 rounded-2xl p-12">
-            <Map size={48} className="mb-4 opacity-50" />
-            <p>Fill out the details to generate your AI shoot strategy.</p>
+            <MapIcon size={48} className="mb-4 opacity-50" />
+            <p>Yapay zeka çekim stratejinizi oluşturmak için detayları doldurun.</p>
           </div>
         )}
 
@@ -114,14 +114,14 @@ export const ShootPlanner: React.FC = () => {
             {/* Settings Card */}
             <div className="bg-slate-800/50 border border-slate-700 rounded-2xl p-6 backdrop-blur-sm">
                <h2 className="text-xl font-semibold text-white mb-6 flex items-center gap-2">
-                <Aperture className="text-indigo-400" /> Camera Settings Profile
+                <Aperture className="text-indigo-400" /> Kamera Ayar Profili
                </h2>
                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   {[
-                    { label: 'Aperture', val: plan.cameraSettings.aperture },
-                    { label: 'Shutter', val: plan.cameraSettings.shutterSpeed },
+                    { label: 'Diyafram', val: plan.cameraSettings.aperture },
+                    { label: 'Enstantane', val: plan.cameraSettings.shutterSpeed },
                     { label: 'ISO', val: plan.cameraSettings.iso },
-                    { label: 'White Balance', val: plan.cameraSettings.whiteBalance },
+                    { label: 'Beyaz Dengesi', val: plan.cameraSettings.whiteBalance },
                   ].map((s, i) => (
                     <div key={i} className="bg-slate-900 border border-slate-800 p-4 rounded-xl text-center">
                       <div className="text-slate-400 text-xs uppercase font-bold tracking-wider mb-1">{s.label}</div>
@@ -131,7 +131,7 @@ export const ShootPlanner: React.FC = () => {
                </div>
                <div className="mt-4 p-3 bg-slate-900/50 rounded-lg text-sm text-slate-400 flex items-center gap-2">
                  <Info size={14} />
-                 Focus Mode: <span className="text-white">{plan.cameraSettings.focusMode}</span>
+                 Odak Modu: <span className="text-white">{plan.cameraSettings.focusMode}</span>
                </div>
             </div>
 
@@ -139,21 +139,21 @@ export const ShootPlanner: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="bg-amber-900/10 border border-amber-900/30 rounded-2xl p-6">
                 <h3 className="text-lg font-semibold text-amber-200 mb-3 flex items-center gap-2">
-                  <Sun size={18} /> Lighting Strategy
+                  <Sun size={18} /> Aydınlatma Stratejisi
                 </h3>
                 <p className="text-amber-100/80 leading-relaxed text-sm">
                   {plan.lightingSetup}
                 </p>
                 {plan.goldenHourNote && (
                    <div className="mt-4 text-xs bg-amber-500/10 p-2 rounded border border-amber-500/20 text-amber-200">
-                     Golden Hour Tip: {plan.goldenHourNote}
+                     Altın Saat İpucu: {plan.goldenHourNote}
                    </div>
                 )}
               </div>
 
               <div className="bg-emerald-900/10 border border-emerald-900/30 rounded-2xl p-6">
                 <h3 className="text-lg font-semibold text-emerald-200 mb-3 flex items-center gap-2">
-                  <Wind size={18} /> Composition Tips
+                  <Wind size={18} /> Kompozisyon İpuçları
                 </h3>
                 <ul className="space-y-2">
                   {plan.compositionTips.map((tip, i) => (
@@ -168,7 +168,7 @@ export const ShootPlanner: React.FC = () => {
 
             {/* Gear List */}
             <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
-              <h3 className="text-lg font-semibold text-white mb-4">Recommended Kit</h3>
+              <h3 className="text-lg font-semibold text-white mb-4">Önerilen Ekipman</h3>
               <div className="flex flex-wrap gap-2">
                 {plan.gearList.map((item, i) => (
                   <span key={i} className="px-3 py-1.5 bg-slate-800 text-slate-200 rounded-full text-sm border border-slate-700">

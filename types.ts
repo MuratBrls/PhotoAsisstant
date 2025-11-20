@@ -51,12 +51,12 @@ export interface PackingListResponse {
 }
 
 export enum ShootType {
-  PORTRAIT = 'Portrait',
-  LANDSCAPE = 'Landscape',
-  STREET = 'Street',
-  EVENT = 'Event',
-  SPORTS = 'Sports',
-  MACRO = 'Macro',
-  ASTRO = 'Astrophotography',
-  PRODUCT = 'Product',
+  PORTRAIT = 'Portre',
+  LANDSCAPE = 'Manzara',
+  STREET = 'Sokak',
+  EVENT = 'Etkinlik',
+  SPORTS = 'Spor',
+  MACRO = 'Makro',
+  ASTRO = 'Astrofotoğrafçılık',
+  PRODUCT = 'Ürün',
 }

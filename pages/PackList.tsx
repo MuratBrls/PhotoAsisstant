@@ -24,36 +24,36 @@ export const PackList: React.FC = () => {
     <div className="max-w-5xl mx-auto">
       <div className="flex items-end justify-between mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-white mb-2">Smart Packing List</h1>
-          <p className="text-slate-400">Generate a tailored inventory for your specific trip conditions.</p>
+          <h1 className="text-3xl font-bold text-white mb-2">Akıllı Çanta Listesi</h1>
+          <p className="text-slate-400">Seyahat koşullarınıza özel bir envanter oluşturun.</p>
         </div>
       </div>
 
       <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 mb-10">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
-            <label className="text-xs text-slate-500 uppercase font-bold mb-2 block">Destination</label>
+            <label className="text-xs text-slate-500 uppercase font-bold mb-2 block">Hedef</label>
             <input 
               className="w-full bg-slate-950 border border-slate-700 rounded-lg p-3 text-white"
-              placeholder="Iceland, Tokyo..."
+              placeholder="İzlanda, Kapadokya..."
               value={inputs.dest}
               onChange={e => setInputs({...inputs, dest: e.target.value})}
             />
           </div>
           <div>
-             <label className="text-xs text-slate-500 uppercase font-bold mb-2 block">Duration</label>
+             <label className="text-xs text-slate-500 uppercase font-bold mb-2 block">Süre</label>
             <input 
               className="w-full bg-slate-950 border border-slate-700 rounded-lg p-3 text-white"
-              placeholder="3 days, 1 week..."
+              placeholder="3 gün, 1 hafta..."
               value={inputs.duration}
               onChange={e => setInputs({...inputs, duration: e.target.value})}
             />
           </div>
           <div>
-             <label className="text-xs text-slate-500 uppercase font-bold mb-2 block">Primary Focus</label>
+             <label className="text-xs text-slate-500 uppercase font-bold mb-2 block">Ana Odak</label>
             <input 
               className="w-full bg-slate-950 border border-slate-700 rounded-lg p-3 text-white"
-              placeholder="Landscape, Street..."
+              placeholder="Manzara, Sokak..."
               value={inputs.activity}
               onChange={e => setInputs({...inputs, activity: e.target.value})}
             />
@@ -64,7 +64,7 @@ export const PackList: React.FC = () => {
           disabled={status === LoadingState.LOADING}
           className="mt-4 w-full bg-indigo-600 hover:bg-indigo-500 text-white py-3 rounded-lg font-medium transition-colors flex items-center justify-center gap-2"
         >
-          {status === LoadingState.LOADING ? <span className="animate-pulse">Analyzing Weather & Gear...</span> : <><Plus size={18}/> Generate Checklist</>}
+          {status === LoadingState.LOADING ? <span className="animate-pulse">Hava Durumu ve Ekipman Analiz Ediliyor...</span> : <><Plus size={18}/> Kontrol Listesi Oluştur</>}
         </button>
       </div>
 
@@ -79,7 +79,7 @@ export const PackList: React.FC = () => {
               </div>
             </div>
             <button className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white text-sm rounded-lg border border-slate-700 flex items-center gap-2 transition-colors">
-              <Download size={16} /> Export PDF
+              <Download size={16} /> PDF Olarak İndir
             </button>
           </div>
 
@@ -88,7 +88,7 @@ export const PackList: React.FC = () => {
               <div key={i} className="bg-slate-800/30 rounded-xl border border-slate-700 overflow-hidden">
                 <div className="bg-slate-800/80 p-4 border-b border-slate-700 flex justify-between items-center">
                   <h3 className="font-semibold text-slate-200">{cat.categoryName}</h3>
-                  <span className="text-xs bg-slate-900 text-slate-400 px-2 py-1 rounded-full">{cat.items.length} items</span>
+                  <span className="text-xs bg-slate-900 text-slate-400 px-2 py-1 rounded-full">{cat.items.length} öğe</span>
                 </div>
                 <div className="p-2">
                   {cat.items.map((item, idx) => (
@@ -100,7 +100,7 @@ export const PackList: React.FC = () => {
                       <div className="flex-1">
                         <div className="text-slate-200 font-medium flex items-center gap-2">
                           {item.item}
-                          {item.essential && <span className="text-[10px] font-bold text-amber-400 bg-amber-900/30 px-1.5 py-0.5 rounded uppercase tracking-wide">Essential</span>}
+                          {item.essential && <span className="text-[10px] font-bold text-amber-400 bg-amber-900/30 px-1.5 py-0.5 rounded uppercase tracking-wide">Gerekli</span>}
                         </div>
                         {item.notes && <div className="text-sm text-slate-500 mt-0.5">{item.notes}</div>}
                       </div>

@@ -1,5 +1,5 @@
 {
-  "name": "LuminaLens - AI Photography Assistant",
-  "description": "A professional AI-powered assistant for photographers. Features gear compatibility checks, shoot planning, intelligent settings recommendations, and dynamic packing checklists.",
+  "name": "LuminaLens - AI Photo Assistant",
+  "description": "Fotoğrafçılar için profesyonel yapay zeka asistanı. Ekipman uyumluluk kontrolleri, çekim planlama, akıllı ayar önerileri ve dinamik çanta hazırlama listeleri içerir.",
   "requestFramePermissions": []
 }

@@ -9,7 +9,7 @@ interface Message {
 
 export const SettingsWizard: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'ai', text: "Hello! Describe your scene (e.g., 'Night street photography with neon lights') and I'll suggest the best camera settings." }
+    { role: 'ai', text: "Merhaba! Sahnenizi tarif edin (örn. 'Neon ışıklı gece sokak fotoğrafçılığı'), ben de en iyi kamera ayarlarını önereyim." }
   ]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -32,7 +32,7 @@ export const SettingsWizard: React.FC = () => {
       const response = await getSettingsAdvice(userMsg);
       setMessages(prev => [...prev, { role: 'ai', text: response }]);
     } catch (error) {
-      setMessages(prev => [...prev, { role: 'ai', text: "Sorry, I'm having trouble connecting to my neural engine." }]);
+      setMessages(prev => [...prev, { role: 'ai', text: "Üzgünüm, nöral motoruma bağlanırken bir sorun yaşadım." }]);
     } finally {
       setIsTyping(false);
     }
@@ -45,8 +45,8 @@ export const SettingsWizard: React.FC = () => {
             <Sliders size={24} className="text-white" />
         </div>
         <div>
-             <h1 className="text-2xl font-bold text-white">Settings Wizard</h1>
-             <p className="text-slate-400 text-sm">Real-time technical advice</p>
+             <h1 className="text-2xl font-bold text-white">Ayarlar Sihirbazı</h1>
+             <p className="text-slate-400 text-sm">Gerçek zamanlı teknik tavsiye</p>
         </div>
       </div>
 
@@ -93,7 +93,7 @@ export const SettingsWizard: React.FC = () => {
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="e.g. Shooting a waterfall in bright sunlight..."
+              placeholder="Örn: Parlak güneş ışığında şelale çekimi..."
               className="w-full bg-slate-800 border border-slate-700 rounded-xl py-4 pl-4 pr-14 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-all"
             />
             <button 
