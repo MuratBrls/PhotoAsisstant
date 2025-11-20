@@ -6,16 +6,16 @@ LuminaLens, fotoğrafçılar, videografikerler ve içerik üreticileri için gel
 
 ### 1. 🎒 Çanta Hazırlama (My Kit)
 Çekim öncesi ekipmanlarınızı eksiksiz hazırlamanız için geliştirilmiş, akıllı veritabanına sahip manuel kontrol listesi.
-*   **Akıllı Otomatik Tamamlama:** Sony, Canon, Nikon, Fujifilm, DJI, Blackmagic gibi markaların en yeni kamera, lens ve drone modellerini içeren geniş veritabanı.
-*   **Kategorize Edilmiş Yapı:** Kameralar, Lensler, Drone & Aksiyon, Işık Sistemleri, Ses Ekipmanları ve Aksesuarlar için ayrılmış özel bölümler.
+*   **Genişletilmiş 2025 Veritabanı:** Phase One, RED, ARRI gibi sinema ve orta format devlerinden; Sony A9 III, Canon R1 gibi en yeni gövdelere kadar geniş kapsam.
+*   **Akıllı Otomatik Tamamlama:** "35-150", "G Master", "Probe Lens" gibi terimlerle hızlı arama ve ekleme.
+*   **Kategorize Edilmiş Yapı:** Kameralar, Lensler, Drone & Aksiyon, Işık Sistemleri (Aputure/Profoto), Ses Ekipmanları ve Aksesuarlar.
 *   **İlerleme Takibi:** Çantanızın doluluk oranını görsel ilerleme çubuğu ile takip edin.
-*   **Kalıcı Listeler:** Çekim türüne göre listenizi oluşturun ve yönetin.
 
 ### 2. 📷 Ekipman Uyumluluk Kontrolü (Gear Check)
 Sahip olduğunuz veya satın almayı düşündüğünüz bir kamera modelini girin, yapay zeka teknik özelliklerini analiz etsin.
 *   **Lens Önerileri:** Kamera bayonet yapısına (Mount) uygun prime ve zoom lens önerileri.
 *   **Aksesuar Analizi:** Doğru hafıza kartı (SD/CFexpress) ve batarya tipleri.
-*   **Sensör Bilgisi:** Full Frame, APS-C veya Micro Four Thirds sensör uyumluluk kontrolleri.
+*   **Sensör Bilgisi:** Full Frame, APS-C, Medium Format veya Micro Four Thirds sensör uyumluluk kontrolleri.
 
 ### 3. 🗺️ Çekim Planlayıcı (Shoot Planner)
 Gideceğiniz konumu ve koşulları belirtin, LuminaLens sizin için teknik bir çekim reçetesi oluştursun.
@@ -29,7 +29,7 @@ Gideceğiniz konumu ve koşulları belirtin, LuminaLens sizin için teknik bir �
 ### 4. 💬 Ayarlar Sihirbazı (Settings Wizard)
 Sahada anlık teknik desteğe mi ihtiyacınız var? Yapay zeka asistanı ile sohbet edin.
 *   Doğal dil işleme yeteneği ile senaryonuzu anlatın (örn: "Gece vakti hareket eden arabaları ışık izi olarak çekmek istiyorum").
-*   Anında teknik çözüm ve ayar önerileri alın.
+*   "Derin Düşünme" modu ile karmaşık optik sorunlarına çözüm bulun.
 
 ---
 
@@ -72,7 +72,7 @@ Projeyi yerel ortamınızda çalıştırmak için aşağıdaki adımları izleyi
 
 ## 💡 Kullanım İpuçları
 
-*   **Çanta Hazırlarken:** Lens modelini tam hatırlamıyor musunuz? Sadece "85mm" veya "G Master" yazın, sistem size seçenekleri sunacaktır.
+*   **Profesyonel Aramalar:** "Phase One" veya "RED" yazarak high-end ekipmanları listeleyebilirsiniz.
 *   **Çekim Planlarken:** Hava durumunu ve saati ne kadar detaylı girerseniz (örn: "Parçalı bulutlu gün batımı"), yapay zeka o kadar nokta atışı ayar önerir.
 *   **Ekipman Kontrolü:** Sadece modern kameralar değil, eski modelleri de (örn: "Canon 5D Mark II") sorgulayabilirsiniz.
 
